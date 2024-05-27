@@ -43,9 +43,13 @@ public class AdministratorService {
 
 	/**
 	 * メアドの登録重複チェック
+	 * @param mailAddress
+	 * @return
 	 */
-	public boolean mailChecks(String mailAddress){
-		return administratorRepository.findByMailAddress(mailAddress) != null;
+	public Administrator mailChecks(String mailAddress){
+		Administrator administrator = new Administrator();
+		administrator = administratorRepository.findByMailAddress(mailAddress);
+		return administrator;
 	
 	}
 

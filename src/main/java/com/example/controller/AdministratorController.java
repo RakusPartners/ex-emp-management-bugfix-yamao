@@ -85,9 +85,13 @@ public class AdministratorController {
             return "administrator/insert";
         }
 
-		if(administratorService.mailChecks(form.getMailAddress())){
-			model.addAttribute(("error-messages"), "すでに登録されているメールアドレスです");
+		if(administratorService.mailChecks(form.getMailAddress())!= null){
+			model.addAttribute("doublemails", "すでに登録されているメールアドレスです");
+			model.addAttribute("insertAdministratorForm", form);
+            return "administrator/insert";
 		}
+
+		
 
 
 		Administrator administrator = new Administrator();
