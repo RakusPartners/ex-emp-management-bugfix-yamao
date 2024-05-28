@@ -55,6 +55,42 @@ public class EmployeeController {
 		return "employee/list";
 	}
 
+
+	/////////////////////////////////////////////////////
+	// ユースケース：曖昧検索で従業員情報を表示
+	/////////////////////////////////////////////////////
+	/**
+	 * 曖昧検索で従業員情報を表示
+	 * @param model
+	 * @param name
+	 * @return
+	 */
+	@GetMapping("/search")
+	public String showListByname(Model model,String name){
+		List<Employee> employeeList;
+		String notNameMessage = null;
+
+		if(name == null){
+			employeeList = employeeService.showList();
+		}else{
+			employeeList = employeeService.searchByName(name);
+
+			if(employeeList.isEmpty()){
+				notNameMessage = "１件もありませんでした";
+				employeeList = employeeService.showList();
+			}
+		}
+
+		model.addAttribute("employeeList", employeeList);
+		model.addAttribute("notNameMessage", notNameMessage);
+
+		return "employee/list";
+
+
+
+	}
+
+
 	/////////////////////////////////////////////////////
 	// ユースケース：従業員詳細を表示する
 	/////////////////////////////////////////////////////
